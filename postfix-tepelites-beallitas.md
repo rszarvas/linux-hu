@@ -1,0 +1,1 @@
+# Postfix levelezőszerver telepítése, levélküldés beállítása gmail SMTP szolgáltatással
