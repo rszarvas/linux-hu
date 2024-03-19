@@ -1,1 +1,3 @@
 # Postfix levelezőszerver telepítése, levélküldés beállítása gmail SMTP szolgáltatással
+Rövid útmutató a postfix telepítéséhez, konfigurálásához Ubuntu linuxon.
+A postfix egy levelező szerver. Segítségével email üzeneteket (pl alerteket) küldhetünk a szerverünkről magunknak. A következő leírás hasznos lehetnek azoknak, akik most találkoznak először a postfix-szel. A végére eljutunk az első teszt üzenetünkig. A folytatásban ezekre a beállításokra épülve beállítunk különböző alert eseményeket és aokhoz tartozó email-eket egy ProxPox virtuáls környezetben.
