@@ -49,10 +49,12 @@ A jelszót tároló fájlt rejtsük el illetéktelen szemek elől:
 chmod 600 /etc/postfix/sasl_passwd
 ```
 
-A jelazóból postfix adatbázisfájl létrehozása:
+
+A jelszóból postfix adatbázisfájl létrehozása:
 ```
-chmod 600 /etc/postfix/sasl_passwd
+postmap /etc/postfix/sasl_passwd
 ```
+
 
 Postfix konfiguráció újratöltése:
 ```
