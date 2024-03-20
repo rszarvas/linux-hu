@@ -62,3 +62,9 @@ Postfix konfiguráció újratöltése:
 ```
 postfix reload
 ```
+
+## cert bezerzés, beállítás
+Létrehozzuk a mappát, ahol a hitelesítő kulcsot tároljuk
+```
+mkdir /usr/share/ca-certificates/extra
+```
