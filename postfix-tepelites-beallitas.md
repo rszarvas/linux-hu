@@ -128,6 +128,7 @@ Postfix szolgáltatás újraindítása:
 ```
 systemctl restart postfix
 ```
+## Teszt üzenet küldése
 Ha mindent jól csináltunk, most már működik a Postfix. Ki is próbálhatjuk, küldjünk magunknak egy teszt üzenetet:
 ```
 echo "Uzenet szovege" | mail -s "Targy" cimzett@xyzmail.com
