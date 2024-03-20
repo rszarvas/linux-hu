@@ -35,9 +35,10 @@ Ajánlott nyitni egy új gmail-fiókot, már csak a biztonság kedvéért is. A 
 Létre kell hozni a gmail fiókhoz egy alkalmazásjelszót. 2-faktoros gmail hitelesítés esetén ez szükséges.
 Részletes infó az alkalmazásjelszó generálásról:. https://support.google.com/accounts/answer/185833?hl=hu&sjid=17302967919086053789-EU
 
-Létre kell hozni egy sasl_passwd fájlt az /etc/postfix mappában:
+## sasl_paswd fájl
+Létre kell hozni egy sasl_passwd fájlt az /etc/postfix mappában. Ez fogja tárolni az email-fiók hitelesítéséhez az adatokat.
 ```
-nano /etc/postfix/sasl_passwd:
+nano /etc/postfix/sasl_passwd
 ```
 Ennek a tartalma:
 ```
