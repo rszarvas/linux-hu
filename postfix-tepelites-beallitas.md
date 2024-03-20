@@ -1,6 +1,7 @@
 # Postfix levelezőszerver telepítése, levélküldés beállítása gmail SMTP szolgáltatással
 Rövid útmutató a postfix telepítéséhez, konfigurálásához Ubuntu linuxon.
-A postfix egy levelező szerver, aminek segítségével email üzeneteket (pl alerteket) küldhetünk a szerverünkről magunknak. A következő leírás hasznos lehetnek azoknak, akik most találkoznak először a postfix-szel. A levelek küldéséhez a gmail SMTP szolgáltatását fogjuk használni. A leírás végére eljutunk az első teszt üzenetünkig. A folytatásban pedig az itt leírtakra alapozva beállítunk különböző alert email-eket egy ProxPox virtuáls környezetben.
+A postfix egy levelező szerver, aminek segítségével email üzeneteket (pl. alerteket SSH belépés esetére, vagy ProxMox eseményekre) küldhetünk a szerverünkről magunknak. Ezeket az alert üzeneteket csak úgy tudjuk elküldeni egy email-címre, ha előtte a linuxon bekonfigurálunk egy levelező szervert, ami jelen esetben a Postfix lesz.
+A következő leírás hasznos lehetnek azoknak, akik most találkoznak először a postfix-szel. A levelek kiküldéséhez a gmail SMTP szolgáltatását fogjuk használni. A leírás végére eljutunk az első teszt üzenetünkig. A folytatásban pedig az itt leírtakra alapozva beállítunk különböző alert email-eket egy ProxPox virtuáls környezetben.
 Az egyszerűség kedvéért a telepítést, konfigurálást root felhasználóként végeztem el.
 ```
 apt install postfix
@@ -14,7 +15,6 @@ apt install libsasl2-modules
 ```
 A /etc/postfix/main.cf tartalma:
 ```
-
 smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
 biff = no
 
