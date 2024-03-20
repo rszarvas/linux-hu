@@ -8,6 +8,7 @@ apt install postfix
 ```
 apt install mailutils
 ```      
+Az email-fiók hitelesítéséhez szükséges:
 ```
 apt install libsasl2-modules
 ```
@@ -76,8 +77,7 @@ A jelszót tároló fájlt rejtsük el illetéktelen szemek elől:
 chmod 600 /etc/postfix/sasl_passwd
 ```
 
-
-A jelszóból postfix adatbázisfájl létrehozása:
+A sasl_passwd fájlban megadott adatokból a postfix létrehoz egy adatbázisfájlt a /etc/postfix/sasl/ mappába az alábbi paranccsa. A postfix ezt fogja használni az email fiók hitelesítéséhez.
 ```
 postmap /etc/postfix/sasl_passwd
 ```
@@ -93,3 +93,48 @@ Létrehozzuk a mappát, ahol a hitelesítő kulcsot tároljuk
 ```
 mkdir /usr/share/ca-certificates/extra
 ```
+Szerkeszük a /etc/ca-certificates.conf fájlt
+```
+nano /etc/ca-certificates.conf
+```
+A  fájl végére beszúrni ezt:
+```
+extra/root-ca.crt
+```
+## Gmail cert lekérése
+A következő paranccsal lekért hitelesítő adatokat a -----BEGIN CERTIFICATE----- -tól az -----END CERTIFICATE----- -ig bemásoljuk a /usr/share/ca-certificates/extra/root-ca.crt fájlba.
+Parancs:
+```
+openssl s_client -starttls smtp -connect [smtp.gmail.com]:587 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+```
+root-ca.crt fájl létrehozása és megnyitása:
+```
+nano /usr/share/ca-certificates/extra/root-ca.crt
+```
+Frissítjük a hitelesítési adatokat:
+```
+update-ca-certificates
+```
+Létrehozzuk a /etc/mail.rc fájlt...:
+```
+nano /etc/mail.rc
+```
+... és belemásoljuk ezt a 2 sort:
+```
+set smtp=smtp://smtp.gmail.com:587
+set smtp-auth=login
+```
+Postfix szolgáltatás újraindítása:
+```
+systemctl restart postfix
+```
+Ha mindent jól csináltunk, most már működik a Postfix. Ki is próbálhatjuk, küldjünk magunknak egy teszt üzenetet:
+```
+echo "Uzenet szovege" | mail -s "Targy" cimzett@xyzmail.com
+```
+
+Ha néhány másodperc után nem érkezik meg a levél, a /var/log/mail.log fájlban megtalálható a hiba oka. Ha nem található a mail.log fájl, akkkor valószínűleg nincs feltelepítve az rsyslog. Telepítés:
+```
+apt install rsyslog
+```
+Telepítés után ismételjük meg a teszt üzenet elküldését. Ekkor már látható lesz a mail.log-ban az esetleges hiba oka.
