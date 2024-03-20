@@ -31,18 +31,19 @@ smtp_tls_secure_cert_match = nexthop, dot-nexthop
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
 ```
 ## Gmail beállítások
-Létre kell hozni a gmail fiókhoz egy alkalmazásjelszót. 2-faktoros gmail hitelesítés esetén ez szükséges, de amúgy se árt, ha nem a fiókhoz tartozó jelszót adjuk meg.
+Ajánlott nyitni egy új gmail-fiókot, már csak a biztonság kedvéért is. A postfix ezt a fiókot fogja használni, mint levélküldő, így ez a cím fog megjelenni a levél fejlécében is.
+Létre kell hozni a gmail fiókhoz egy alkalmazásjelszót. 2-faktoros gmail hitelesítés esetén ez szükséges.
 Részletes infó az alkalmazásjelszó generálásról:. https://support.google.com/accounts/answer/185833?hl=hu&sjid=17302967919086053789-EU
 
-Létre kell hozni egy sasl_passwd fájlt:
+Létre kell hozni egy sasl_passwd fájlt az /etc/postfix mappában:
 ```
 nano /etc/postfix/sasl_passwd:
 ```
 Ennek a tartalma:
 ```
-[smtp.gmail.com]:587    emailcimed@gmail.com:**** **** **** ****
+[smtp.gmail.com]:587    valasztott.emailcimed@gmail.com:**** **** **** ****
 ```
-Az email cím értelemszerűen annak a fióknak a címe, ahonnan a leveleket küldeni szeretnénk, a **** **** **** **** helyére pedig a gmail fiókhoz generált alkalmazásjelszó kell, szóközökkel együtt, ahogy majd a google megadja.
+Az email cím értelemszerűen annak a fióknak a címe, ahonnan a leveleket küldeni szeretnénk, a kettspont utáb a **** **** **** **** helyére pedig a gmail fiókhoz generált alkalmazásjelszót kell beilleszteni, szóközökkel együtt úgy, ahogy majd a google megadja.
 
 A jelszót tároló fájlt rejtsük el illetéktelen szemek elől:
 ```
