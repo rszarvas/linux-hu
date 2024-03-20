@@ -11,9 +11,32 @@ apt install mailutils
 ```
 apt install libsasl2-modules
 ```
-A /etc/postfix/main.cf tartalmát az alábbiakkal kell kiegészíteni:
+A /etc/postfix/main.cf tartalma:
 ```
-myhostname=$(hostname -f)
+
+smtpd_banner = $myhostname ESMTP $mail_name (Ubuntu)
+biff = no
+
+# appending .domain is the MUA's job.
+append_dot_mydomain = no
+
+# Uncomment the next line to generate "delayed mail" warnings
+#delay_warning_time = 4h
+
+readme_directory = no
+
+# TLS parameters
+smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
+smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+
+smtp_tls_CApath=/etc/ssl/certs
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
+
+smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
+mailbox_size_limit = 0
+inet_protocols = all
+
+myhostname=valassz_egy_hosztnevet
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
 mydestination = $myhostname, localhost.$mydomain, localhost
@@ -30,6 +53,7 @@ smtp_tls_security_level = secure
 smtp_tls_mandatory_ciphers = high
 smtp_tls_secure_cert_match = nexthop, dot-nexthop
 smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+
 ```
 ## Gmail beállítások
 Ajánlott nyitni egy új gmail-fiókot, már csak a biztonság kedvéért is. A postfix ezt a fiókot fogja használni, mint levélküldő, így ez a cím fog megjelenni a levél fejlécében is.
