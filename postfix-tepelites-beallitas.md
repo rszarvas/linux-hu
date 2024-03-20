@@ -134,8 +134,8 @@ Ha mindent jól csináltunk, most már működik a Postfix. Ki is próbálhatjuk
 echo "Uzenet szovege" | mail -s "Targy" cimzett@xyzmail.com
 ```
 
-Ha néhány másodperc után nem érkezik meg a levél, a /var/log/mail.log fájlban megtalálható a hiba oka. Ha nem található a mail.log fájl, akkkor valószínűleg nincs feltelepítve az rsyslog. Telepítés:
+Ha néhány másodperc után nem érkezik meg a levél, a /var/log/mail.log fájlban megtalálható a hiba oka. Ha nincs mail.log fájlunk, akkkor valószínűleg nincs feltelepítve az rsyslog. Telepítés:
 ```
 apt install rsyslog
 ```
-Telepítés után ismételjük meg a teszt üzenet elküldését. Ekkor már látható lesz a mail.log-ban az esetleges hiba oka.
+Telepítés után ismételjük meg a teszt üzenet elküldését. Ekkor már létre fog jönni a mail.log fájl és látható lesz a mail.log-ban az esetleges hiba oka.
